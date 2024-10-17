@@ -20,7 +20,7 @@ type Estudiante struct {
 type Materia struct {
 	Id_subject int    `json:"id_subject" gorm:"primaryKey"`
 	Name       string `json:"name"`
-	Email      string `json:"email"`
+	//Email      string `json:"email"`
 }
 
 type Calificacion struct {
@@ -74,12 +74,26 @@ func main() {
 	})
 
 	// 1.2 OBTENER CALIFICACIONES
+	//Calificaion especifica por grade_id y strudent_id
 	router.GET("/api/grades/:grade_id/student/:student_id", func(c *gin.Context) {
 		gradeID := c.Param("grade_id")
 		studentID := c.Param("student_id")
 		var calificacion Calificacion
 		if err := db.Where("grade_id = ? AND student_id = ?", gradeID, studentID).First(&calificacion).Error; err != nil {
 			c.JSON(http.StatusNotFound, gin.H{"error": "Calificación no encontrada"})
+			return
+		}
+		c.JSON(http.StatusOK, calificacion)
+	})
+
+	//obtener calificaciones  de un estudiante
+	router.GET("/api/grades/student/:student_id", func(c *gin.Context) {
+		studentID := c.Param("student_id")
+		var calificacion []Calificacion
+
+		//buscar todas las calificaciones
+		if err := db.Where("student_id = ?", studentID).Find(&calificacion).Error; err != nil {
+			c.JSON(http.StatusNotFound, gin.H{"error": "No se encontraron calificaciones para este estudiante"})
 			return
 		}
 		c.JSON(http.StatusOK, calificacion)
