@@ -1,20 +1,79 @@
-{{define "index.html"}}
+{{ define "index.html"}}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ .title }}</title>
 </head>
+
 <body>
-    <h1>Hola Mundo, desde servidor de GO </h1>
-    <h3>Total de usuarios registrados {{ .total_users }}</h3>
-    <ul> 
-        {{range.users}}
-        <li>{{ .Name }} - {{ .Email }} </li>
-        {{ end }}
-    </ul>
-    
+  <h1>Hola Mundo. desde servidor en GO</h1>
+  <h3>Total de usuarios registrados {{ .total_users }}</h3>
+  <form id="user-form">
+    <label for="email">
+      Email:
+      <input type="email" name="email" required>
+    </label>
+    <label for="email">
+      Nombre:
+      <input type="text" name="name" required>
+    </label>
+    <button type="submit">Guardar</button>
+  </form>
+  <ul id="user-list">
+    {{ range .users }}
+    <li>{{ .Name }} - {{ .Email }}</li>
+    {{ end }}
+  </ul>
+
+  <script>
+    const userList = document.getElementById("user-list")
+    const userForm = document.getElementById("user-form")
+    async function saveUser(event) {
+      event.preventDefault()
+      const formData = new FormData(userForm)
+      const response = await fetch('/api/users', {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(Object.fromEntries(formData))
+      })
+      await getUsers()
+    }
+
+    async function getUsers() {
+      const response = await fetch(
+        '/api/users',
+        {
+          method: 'GET'
+        }
+      )
+      const users = await response.json()
+      userList.innerHTML = ''
+      for (const user of users) {
+        const li = document.createElement('li')
+        const btn = document.createElement('button')
+        btn.textContent = 'Eliminar'
+        btn.addEventListener('click', () => deleteUser(user.id))
+        li.appendChild(document.createTextNode(`${user.name} - ${user.email}`))
+        li.appendChild(btn)
+        userList.appendChild(li)
+      }
+    }
+
+    async function deleteUser(id) {
+      const response = await fetch(`/api/users/${id}`, {
+        method: 'DELETE'
+      })
+      await getUsers()
+    }
+
+    getUsers()
+    userForm.addEventListener("submit", saveUser)
+  </script>
 </body>
 
 </html>
