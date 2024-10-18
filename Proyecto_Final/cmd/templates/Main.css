@@ -1,0 +1,42 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background-image: url('Facultad.jpg'); /* Cambia 'tu-imagen-de-fondo.jpg' por la ruta de tu imagen */
+    background-size: cover; /* Ajusta la imagen para que cubra toda la pantalla */
+    background-position: center; /* Centra la imagen de fondo */
+    color: white; /* Color del texto */
+}
+
+.header {
+    background-color: rgba(0, 0, 0, 0.5); /* Color de fondo negro con transparencia */
+    padding: 20px; /* Espaciado interior */
+    position: fixed; /* Fija la barra en la parte superior */
+    width: 100%; /* Ancho completo */
+    top: 0; /* Alineado en la parte superior */
+    z-index: 1000; /* Asegura que esté por encima de otros elementos */
+}
+
+.header h1 {
+    margin: 0; /* Elimina márgenes */
+    font-weight: bold; /* Texto en negrita */
+    text-align: center; /* Centra el texto */
+}
+
+/* Estilo para los enlaces */
+.nav-links {
+    text-align: center; /* Centra los enlaces */
+    margin-top: 80px; /* Espacio desde la barra superior */
+}
+
+.nav-links a {
+    color: white; /* Color de los enlaces */
+    text-decoration: none; /* Sin subrayado */
+    margin: 0 15px; /* Espacio entre enlaces */
+    font-weight: bold; /* Texto en negrita */
+    font-size: 18px; /* Tamaño de fuente */
+}
+
+.nav-links a:hover {
+    text-decoration: underline; /* Subrayado al pasar el ratón */
+}

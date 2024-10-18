@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Calificaciones</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css"> <!-- Vincula tu archivo CSS aquí -->
+</head>
+<body>
+    <div class="background">
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+    <form action="/guardar_calificacion" method="POST">
+        <h3>Registro de Calificaciones</h3>
+
+        <label for="grade_id">ID de la Calificación</label>
+        <input type="number" id="grade_id" name="grade_id" placeholder="Ingresa el ID de la calificación" required>
+
+        <label for="student_id">ID del Estudiante (Opcional)</label>
+        <input type="number" id="student_id" name="student_id" placeholder="Ingresa el ID del estudiante">
+
+        <label for="id_subjet">ID de la Materia (Opcional)</label>
+        <input type="number" id="id_subject" name="id_subject" placeholder="Ingresa el ID de la materia">
+
+        <label for="grade">Calificación</label>
+        <input type="number" step="0.01" id="grade" name="grade" placeholder="Ingresa la calificación" required>
+
+        <button type="submit">Guardar Calificación</button>
+        <a href="Main.html">Regresar</a>
+    </form>
+</body>
+</html>
