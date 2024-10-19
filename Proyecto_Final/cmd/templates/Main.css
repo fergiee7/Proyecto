@@ -2,41 +2,105 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Poppins', sans-serif;
-    background-image: url('Facultad.jpg'); /* Cambia 'tu-imagen-de-fondo.jpg' por la ruta de tu imagen */
-    background-size: cover; /* Ajusta la imagen para que cubra toda la pantalla */
-    background-position: center; /* Centra la imagen de fondo */
-    color: white; /* Color del texto */
+    background-image: url('Facultad.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: white;
 }
 
 .header {
-    background-color: rgba(0, 0, 0, 0.5); /* Color de fondo negro con transparencia */
-    padding: 20px; /* Espaciado interior */
-    position: fixed; /* Fija la barra en la parte superior */
-    width: 100%; /* Ancho completo */
-    top: 0; /* Alineado en la parte superior */
-    z-index: 1000; /* Asegura que esté por encima de otros elementos */
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
 }
 
 .header h1 {
-    margin: 0; /* Elimina márgenes */
-    font-weight: bold; /* Texto en negrita */
-    text-align: center; /* Centra el texto */
+    margin: 0;
+    font-weight: bold;
+    text-align: center;
 }
 
-/* Estilo para los enlaces */
+/* Estilos del menú desplegable */
+.nav-menu {
+    background-color: rgba(241, 241, 241, 0.9);
+    overflow: visible;
+    position: fixed;
+    width: 100%;
+    top: 80px;
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+}
+
+.nav-menu-inner {
+    display: flex;
+}
+
+.nav-menu > a, .dropdown > a {
+    display: block;
+    color: #333;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.dropdown {
+    position: relative;
+}
+
+.nav-menu > a:hover, .dropdown:hover > a {
+    background-color: rgba(221, 221, 221, 1);
+    text-decoration: underline;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: rgba(249, 249, 249, 1);
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    top: 100%;
+    left: 0;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+.dropdown-content a:hover {
+    background-color: rgba(221, 221, 221, 1);
+    text-decoration: underline;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
 .nav-links {
-    text-align: center; /* Centra los enlaces */
-    margin-top: 80px; /* Espacio desde la barra superior */
+    text-align: center;
+    margin-top: 140px;
 }
 
 .nav-links a {
-    color: white; /* Color de los enlaces */
-    text-decoration: none; /* Sin subrayado */
-    margin: 0 15px; /* Espacio entre enlaces */
-    font-weight: bold; /* Texto en negrita */
-    font-size: 18px; /* Tamaño de fuente */
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+    font-weight: bold;
+    font-size: 18px;
 }
 
 .nav-links a:hover {
-    text-decoration: underline; /* Subrayado al pasar el ratón */
+    text-decoration: underline;
 }
