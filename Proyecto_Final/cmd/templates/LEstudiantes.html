@@ -4,15 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulario de Estudiantes</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css"> <!-- Vincula tu archivo CSS aquí -->
+    <link rel="stylesheet" href="FDefault.css"">
 </head>
 <body>
     <div class="background">
         <div class="shape"></div>
         <div class="shape"></div>
     </div>
-    <form action="/guardar_estudiante" method="POST">
+    <form action="/api/students" method="POST">
         <h3>Registro de Estudiantes</h3>
 
         <label for="student_id">ID del Estudiante</label>
@@ -28,7 +27,34 @@
         <input type="email" id="email" name="email" placeholder="Ingresa el email" required>
 
         <button type="submit">Guardar Estudiante</button>
-        <a href="Main.html">Regresar</a>
+        <button type="button" onclick="window.location.href='Main.html';">Regresar</button>
     </form>
 </body>
+
+<style>
+    form{
+    height: 780px;
+    width: 400px;
+    background-color: rgba(255,255,255,0.13);
+    position: absolute;
+    transform: translate(-50%,-50%);
+    top: 60%;
+    left: 50%;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255,255,255,0.1);
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    padding: 50px 35px;
+    }
+
+    .shape:last-child{
+    right: -70px;
+    bottom: -260px;
+}
+
+.shape:first-child{
+    left: -80px;
+    top: -150px;
+}
+</style>
 </html>
