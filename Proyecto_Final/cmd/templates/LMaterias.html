@@ -4,15 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de Materias</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css"> <!-- Vincula tu archivo CSS aquí -->
+    <link rel="stylesheet" href="FDefault.css"">
 </head>
 <body>
     <div class="background">
         <div class="shape"></div>
         <div class="shape"></div>
     </div>
-    <form action="/guardar_materia" method="POST">
+    <form action="/api/subjects" method="POST">
         <h3>Registro de Materias</h3>
 
         <label for="subject_id">ID de la Materia</label>
@@ -22,7 +21,7 @@
         <input type="text" id="name" name="name" placeholder="Ingresa el nombre de la materia" required>
 
         <button type="submit">Guardar Materia</button>
-        <a href="Main.html">Regresar</a>    
+        <button type="button" onclick="window.location.href='Main.html';">Regresar</button>
     </form>
 </body>
 </html>
