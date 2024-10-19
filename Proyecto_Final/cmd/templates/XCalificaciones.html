@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta de Calificaciones</title>
+    <link rel="stylesheet" href="FDefault.css">
+</head>
+<body>
+    <div class="background">
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+    <form action="/api/grades/student" method="GET">
+        <h3>Consulta de Calificaciones</h3>
+
+        <label for="student_id">ID del Estudiante</label>
+        <input type="number" id="student_id" name="student_id" placeholder="Ingresa el ID del estudiante" required>
+
+        <button type="submit">Consultar Calificaciones</button>
+        <button type="button" onclick="window.location.href='Main.html';">Regresar</button>
+    </form>
+</body>
+</html>

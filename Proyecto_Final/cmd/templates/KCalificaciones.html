@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eliminar Calificación</title>
+    <link rel="stylesheet" href="FDefault.css">
+</head>
+<body>
+    <div class="background">
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+    <form action="/api/grades/delete" method="POST">
+        <h3>Eliminar Calificación</h3>
+
+        <label for="grade_id">ID de la Calificación</label>
+        <input type="number" id="grade_id" name="grade_id" placeholder="Ingresa el ID de la calificación a eliminar" required>
+
+        <label for="student_id">ID del Estudiante (Opcional)</label>
+        <input type="number" id="student_id" name="student_id" placeholder="Confirma el ID del estudiante">
+
+        <label for="id_subject">ID de la Materia (Opcional)</label>
+        <input type="number" id="id_subject" name="id_subject" placeholder="Confirma el ID de la materia">
+
+        <label for="grade">Calificación (Opcional)</label>
+        <input type="number" step="0.01" id="grade" name="grade" placeholder="Confirma la calificación">
+
+        <button type="submit">Eliminar Calificación</button>
+        <button type="button" onclick="window.location.href='Main.html';">Regresar</button>
+    </form>
+</body>
+<style>
+    form{
+    height: 780px;
+    width: 400px;
+    background-color: rgba(255,255,255,0.13);
+    position: absolute;
+    transform: translate(-50%,-50%);
+    top: 60%;
+    left: 50%;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255,255,255,0.1);
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    padding: 50px 35px;
+    }
+
+    .shape:last-child{
+    right: -70px;
+    bottom: -260px;
+    }
+
+    .shape:first-child{
+    left: -80px;
+    top: -150px;
+    }
+</style>
+</html>
