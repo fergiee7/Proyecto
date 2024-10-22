@@ -53,10 +53,15 @@ func main() {
 	router.GET("/ping", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{"message": "pong"})
 	})
+	router.GET("/", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "Main.html", gin.H{
+			"title": "Menú de Acciones",
+		})
+	})
 
 	// 1. OBTENER
 	//1.1OBTENER MATERIAS
-	router.GET("/", func(c *gin.Context) {
+	/*router.GET("/", func(c *gin.Context) {
 		materias := []Materia{}
 		db.Find(&materias)
 		c.HTML(200, "index.html", gin.H{
@@ -64,13 +69,35 @@ func main() {
 			"total_materias": len(materias),
 			"materias":       materias,
 		})
-	})
+	})*/
+	//Obtener todos los estudiantes
+	router.GET("/api/students/:student_id", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "XEstudiantes.html", gin.H{})
+		studentID := c.Param("student_id")
+		var estudiante []Estudiante
 
+		//buscar todos los estudiantes
+		if err := db.Where("student_id = ?", studentID).Find(&estudiante).Error; err != nil {
+			c.JSON(http.StatusNotFound, gin.H{"error": "No se encontraron datos para este estudiante"})
+			return
+		}
+		c.JSON(http.StatusOK, estudiante)
+	})
 	// Obtener materias
-	router.GET("/api/subjects", func(c *gin.Context) {
-		materias := []Materia{}
-		db.Find(&materias)
-		c.JSON(200, materias)
+	router.GET("/api/subjects/:id_subject", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "XMaterias.html", gin.H{})
+		//materias := []Materia{}
+		subjectID := c.Param("id_subject")
+		var materias []Materia
+
+		//buscar todos los estudiantes
+		if err := db.Where("id_subject = ?", subjectID).Find(&materias).Error; err != nil {
+			c.JSON(http.StatusNotFound, gin.H{"error": "No se encontraron materias"})
+			return
+		}
+		c.JSON(http.StatusOK, materias)
+		/*db.Find(&materias)
+		c.JSON(200, materias)*/
 	})
 
 	// 1.2 OBTENER CALIFICACIONES
@@ -88,6 +115,7 @@ func main() {
 
 	//obtener calificaciones  de un estudiante
 	router.GET("/api/grades/student/:student_id", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "XCalificaciones.html", gin.H{})
 		studentID := c.Param("student_id")
 		var calificacion []Calificacion
 
@@ -100,8 +128,24 @@ func main() {
 	})
 
 	// 2. CREAR
+	//Crear estudiante.
+	router.POST("/api/students", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "LEstudiantes.html", gin.H{})
+		var estudiante Estudiante
+		if err := c.BindJSON(&estudiante); err == nil {
+			result := db.Create(&estudiante)
+			if result.Error != nil {
+				c.JSON(500, gin.H{"error": "Error al crear Estudiante"})
+				return
+			}
+			c.JSON(200, estudiante)
+		} else {
+			c.JSON(400, gin.H{"error": "Invalid payload"})
+		}
+	})
 	// CREAR MATERIA
 	router.POST("/api/subjects", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "LMaterias.html", gin.H{})
 		var materia Materia
 		if err := c.BindJSON(&materia); err == nil {
 			result := db.Create(&materia)
@@ -116,6 +160,7 @@ func main() {
 	})
 	//2.2 CREAR  CALIFICACION
 	router.POST("/api/grades", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "LCalificaciones.html", gin.H{})
 		var calificacion Calificacion
 		if err := c.BindJSON(&calificacion); err == nil {
 			result := db.Create(&calificacion)
@@ -131,8 +176,35 @@ func main() {
 	})
 
 	// 3. ACTUALIZAR
+	//Actualizar estudiante
+	router.PUT("/api/students/:id", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "MEstudiantes.html", gin.H{})
+		id := c.Param("id")
+		idParsed, err := strconv.Atoi(id)
+		if err != nil {
+			c.JSON(400, gin.H{"error": "Invalid id"})
+			return
+		}
+
+		var estudiante Estudiante
+		if err := c.BindJSON(&estudiante); err == nil {
+			var estudianteExistente Estudiante
+			result := db.First(&estudianteExistente, idParsed)
+			if result.Error != nil {
+				c.JSON(404, gin.H{"error": "Estudiante no encontrado"})
+				return
+			}
+
+			estudianteExistente.Name = estudiante.Name
+			db.Save(&estudianteExistente)
+			c.JSON(200, gin.H{"message": "Alumno actualizado"})
+		} else {
+			c.JSON(400, gin.H{"error": "Invalid payload"})
+		}
+	})
 	//3.1ACTUALIZAR MATERIA
 	router.PUT("/api/subjects/:id", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "MMaterias.html", gin.H{})
 		id := c.Param("id")
 		idParsed, err := strconv.Atoi(id)
 		if err != nil {
@@ -158,6 +230,7 @@ func main() {
 	})
 	//3.2 ACTUALIZAR CALIFICACION
 	router.PUT("/api/grades/:id", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "MCalificaciones.html", gin.H{})
 		id := c.Param("id")
 		idParsed, err := strconv.Atoi(id)
 		if err != nil {
@@ -184,6 +257,7 @@ func main() {
 	// 4. ELIMINAR
 	//4.1 ELIMINAR MATERIA
 	router.DELETE("/api/subjects/:id", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "KMaterias.html", gin.H{})
 		id := c.Param("id")
 		idParsed, err := strconv.Atoi(id)
 		if err != nil {
@@ -201,6 +275,7 @@ func main() {
 
 	//ELIMINAR CALIFICACION
 	router.DELETE("/api/grades/:id", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "KCalificaciones.html", gin.H{})
 		id := c.Param("id")
 		idParsed, err := strconv.Atoi(id)
 		if err != nil {
@@ -214,6 +289,21 @@ func main() {
 		}
 		c.JSON(200, gin.H{"message": "Calificacion eliminada"})
 	})
-
+	//Eliminar estudiante.
+	router.DELETE("/api/students/:id", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "KEstudiantes.html", gin.H{})
+		id := c.Param("id")
+		idParsed, err := strconv.Atoi(id)
+		if err != nil {
+			c.JSON(400, gin.H{"error": "Invalid id"})
+			return
+		}
+		result := db.Delete(&Calificacion{}, idParsed)
+		if result.Error != nil {
+			c.JSON(500, gin.H{"error": "Error al eliminar estudiante"})
+			return
+		}
+		c.JSON(200, gin.H{"message": "Estudiante eliminado"})
+	})
 	router.Run(":8001")
 }

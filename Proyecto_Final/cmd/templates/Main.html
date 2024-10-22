@@ -1,10 +1,11 @@
+{{ define "Main.html" }}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="Main.css">
-    <title>Menú de Acciones</title>
+    <title>{{ .title }}</title>
 </head>
 <body>
     <div class="header">
@@ -15,38 +16,39 @@
         <div class="dropdown">
             <a href="#">Crear</a>
             <div class="dropdown-content">
-                <a href="LEstudiantes.html">Estudiantes</a>
-                <a href="LMaterias.html">Materias</a>
-                <a href="LCalificaciones.html">Calificaciones</a>
+                <a href="/api/students">Estudiantes</a>
+                <a href="/api/subjects">Materias</a>
+                <a href="/api/grades">Calificaciones</a>
             </div>
         </div>
 
         <div class="dropdown">
             <a href="#">Eliminar</a>
             <div class="dropdown-content">
-                <a href="KEstudiantes.html">Estudiantes</a>
-                <a href="KMaterias.html">Materias</a>
-                <a href="KCalificaciones.html">Calificaciones</a>
+                <a href="/api/students/:id">Estudiantes</a>
+                <a href="/api/subjects/:id">Materias</a>
+                <a href="/api/grades/:id">Calificaciones</a>
             </div>
         </div>
 
         <div class="dropdown">
             <a href="#">Modificar</a>
             <div class="dropdown-content">
-                <a href="MEstudiantes.html">Estudiantes</a>
-                <a href="MMaterias.html">Materias</a>
-                <a href="MCalficaciones.html">Calificaciones</a>
+                <a href="/api/students/:id">Estudiantes</a>
+                <a href="/api/subjects/:id">Materias</a>
+                <a href="/api/grades/:id">Calificaciones</a>
             </div>
         </div>
 
         <div class="dropdown">
             <a href="#">Consultar</a>
             <div class="dropdown-content">
-                <a href="XEstudiantes.html">Estudiantes</a>
-                <a href="XMaterias.html">Materias</a>
-                <a href="XCalificaciones.html">Calificaciones</a>
+                <a href="/api/students/:student_id">Estudiantes</a>
+                <a href="/api/subjects/:subject_id">Materias</a>
+                <a href="/api/grades/student/:student_id">Calificaciones</a>
             </div>
         </div>
     </div>
 </body>
 </html>
+{{ end }}
